@@ -1,0 +1,7 @@
+{
+  "name": "JARVIS AI Assistant",
+  "description": "Iron Man inspired futuristic AI voice assistant & mobile automation hub with Hindi & English support, device diagnostics, custom voice triggers, and Android smart tutorials.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

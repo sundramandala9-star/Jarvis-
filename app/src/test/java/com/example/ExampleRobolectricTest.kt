@@ -38,4 +38,13 @@ class ExampleRobolectricTest {
     assertTrue(!text.isNullOrBlank())
     assertTrue(text!!.contains("JARVIS") || text.contains("J.A.R.V.I.S."))
   }
+
+  @Test
+  fun `apk download manager initializes in idle state with formatters`() {
+    val context = ApplicationProvider.getApplicationContext<Context>()
+    val manager = com.example.service.ApkDownloadManager(context)
+    assertEquals(com.example.service.DownloadState.Idle, manager.downloadState.value)
+    assertEquals("10.0 MB", manager.formatFileSize(10 * 1024 * 1024L))
+    assertEquals("500.0 KB", manager.formatFileSize(500 * 1024L))
+  }
 }

@@ -34,6 +34,7 @@ enum class JarvisCoreState {
 }
 
 enum class NavigationTab(val labelHindi: String, val labelEnglish: String) {
+    APK_DOWNLOADER("एपीके डाउनलोडर", "APK Downloader"),
     ARC_CORE("आर्क कोर", "Arc Core"),
     AUTOMATION("ऑटोमेशन", "Automation"),
     GUIDES("सेटअप गाइड", "Guides & Tricks"),
@@ -61,11 +62,12 @@ class JarvisViewModel(application: Application) : AndroidViewModel(application) 
     private val repository = JarvisRepository(database.jarvisDao())
     val deviceManager = DeviceAutomationManager(application)
     val ttsManager = JarvisTtsManager(application)
+    val apkManager = com.example.service.ApkDownloadManager(application)
 
     private val _uiState = MutableStateFlow(JarvisUiState())
     val uiState: StateFlow<JarvisUiState> = _uiState.asStateFlow()
 
-    private val _currentTab = MutableStateFlow(NavigationTab.ARC_CORE)
+    private val _currentTab = MutableStateFlow(NavigationTab.APK_DOWNLOADER)
     val currentTab: StateFlow<NavigationTab> = _currentTab.asStateFlow()
 
     private val _batteryInfo = MutableStateFlow(deviceManager.getBatteryStatus())
@@ -219,6 +221,15 @@ class JarvisViewModel(application: Application) : AndroidViewModel(application) 
                 }
                 lower.contains("morning") -> {
                     executeProtocol("MORNING_PROTOCOL", cleanCmd, isVoice)
+                }
+                lower.contains("apk") || lower.contains("download") -> {
+                    selectTab(NavigationTab.APK_DOWNLOADER)
+                    val response = if (_uiState.value.language == "hi") {
+                        "APK Downloader engine khol diya gaya hai, sir. Aap direct URL paste karke APK download kar sakte hain."
+                    } else {
+                        "Opening APK Downloader engine, sir. You can download external APK packages directly to your device's Downloads directory."
+                    }
+                    deliverResponse(cleanCmd, response, "OPEN_DOWNLOADER", isVoice)
                 }
                 else -> {
                     // 3. Fallback to Gemini AI Neural Brain

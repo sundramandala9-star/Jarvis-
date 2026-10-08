@@ -217,6 +217,9 @@ Your persona:
             lower.contains("smart kaise banaye") || lower.contains("tricks") || lower.contains("hacks") || lower.contains("tips") -> {
                 "Mobile ko 100% smart banane ke top 2026 AI hacks: 1. Voice-activated device control, 2. Fast window animation scale (0.5x), 3. RAM telemetry monitor, aur 4. Custom wake-word routines. 'Guides' tab me detail available hai sir!"
             }
+            lower.contains("apk") || lower.contains("download") -> {
+                "Sir, APK download karne ke liye Android me system DownloadManager sabse reliable approach hai. Scoped Storage ke sath Environment.DIRECTORY_DOWNLOADS me file save hoti hai. Iska complete code 'Guides' tab me Step 6 par available hai!"
+            }
             lower.contains("joke") || lower.contains("chutkula") || lower.contains("funny") -> {
                 "Sir, why did Tony Stark bring a ladder to the bar? Because he heard the drinks were on the house! Shall I recalculate my comedic algorithms?"
             }

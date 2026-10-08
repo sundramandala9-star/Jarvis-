@@ -24,6 +24,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.CloudDownload
 import androidx.compose.material.icons.filled.FlashlightOn
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Language
@@ -67,6 +68,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.R
+import com.example.ui.screens.ApkDownloaderScreen
 import com.example.ui.screens.ArcCoreScreen
 import com.example.ui.screens.AutomationScreen
 import com.example.ui.screens.GuidesScreen
@@ -140,6 +142,7 @@ fun MainApp(
                     .padding(paddingValues)
             ) {
                 when (currentTab) {
+                    NavigationTab.APK_DOWNLOADER -> ApkDownloaderScreen(apkManager = viewModel.apkManager)
                     NavigationTab.ARC_CORE -> ArcCoreScreen(
                         viewModel = viewModel,
                         onStartVoiceRecognition = onStartVoiceRecognition
@@ -312,6 +315,7 @@ fun BottomHudNavigationBar(
             modifier = Modifier.fillMaxWidth()
         ) {
             val tabs = listOf(
+                NavigationTab.APK_DOWNLOADER to Icons.Default.CloudDownload,
                 NavigationTab.ARC_CORE to Icons.Default.Radio,
                 NavigationTab.AUTOMATION to Icons.Default.Build,
                 NavigationTab.GUIDES to Icons.Default.MenuBook,

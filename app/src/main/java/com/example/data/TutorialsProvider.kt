@@ -176,6 +176,48 @@ object TutorialsProvider {
             secretTips = listOf(
                 "Mic icon par tap karke natural speed me bole, JARVIS automatically text analyze karke action perform karega."
             )
+        ),
+        TutorialGuide(
+            id = "guide_6_apk_downloader",
+            titleHindi = "Android Studio me APK Downloader Kaise Banaye (DownloadManager & Scoped Storage)",
+            titleEnglish = "How to Build an APK Downloader in Android Studio (DownloadManager & Scoped Storage)",
+            category = "Development",
+            summaryHindi = "URL se direct APK file download karne wala full Android Studio Kotlin code, Manifest permissions aur DownloadManager progress bar setup.",
+            summaryEnglish = "Complete Android Studio Kotlin implementation for downloading APK files via DownloadManager with live progress, Scoped Storage, and notifications.",
+            steps = listOf(
+                GuideStep(
+                    stepNumber = 1,
+                    title = "Step 1: AndroidManifest.xml Permissions",
+                    explanationHindi = "Internet aur notification permissions add karein. Android 10+ (API 29+) me Scoped Storage ki wajah se Downloads folder me save karne ke liye WRITE_EXTERNAL_STORAGE ki zaroorat nahi hoti:",
+                    explanationEnglish = "Declare INTERNET and POST_NOTIFICATIONS in AndroidManifest.xml. Scoped Storage handles public Downloads directory automatically on Android 10+.",
+                    codeSnippetOrAction = "<uses-permission android:name=\"android.permission.INTERNET\" />\n<uses-permission android:name=\"android.permission.POST_NOTIFICATIONS\" />"
+                ),
+                GuideStep(
+                    stepNumber = 2,
+                    title = "Step 2: DownloadManager Request Configure Karein",
+                    explanationHindi = "Android system ke DownloadManager ka use karke URL se file fetch karein aur public Downloads folder me save karein:",
+                    explanationEnglish = "Configure DownloadManager.Request with destination set to Environment.DIRECTORY_DOWNLOADS and MIME type application/vnd.android.package-archive.",
+                    codeSnippetOrAction = "val request = DownloadManager.Request(Uri.parse(apkUrl))\n    .setTitle(\"App Update\")\n    .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, \"app.apk\")\n    .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)\nval id = downloadManager.enqueue(request)"
+                ),
+                GuideStep(
+                    stepNumber = 3,
+                    title = "Step 3: Live Progress Query Loop",
+                    explanationHindi = "DownloadManager.Query() ko coroutine loop me query karke live percentage calculate karein aur UI progress bar update karein:",
+                    explanationEnglish = "Query DownloadManager cursor for COLUMN_BYTES_DOWNLOADED_SO_FAR and COLUMN_TOTAL_SIZE_BYTES to update the progress indicator.",
+                    codeSnippetOrAction = "val query = DownloadManager.Query().setFilterById(downloadId)\nval cursor = downloadManager.query(query)"
+                ),
+                GuideStep(
+                    stepNumber = 4,
+                    title = "Step 4: Download Complete & Error Handling",
+                    explanationHindi = "BroadcastReceiver (ACTION_DOWNLOAD_COMPLETE) sunkar user ko notification dein aur status update karein.",
+                    explanationEnglish = "Listen to DownloadManager.ACTION_DOWNLOAD_COMPLETE broadcast to notify the user and open the file."
+                )
+            ),
+            tryCommandPrompt = "APK download guide dikhao",
+            secretTips = listOf(
+                "Android 10+ me request.setDestinationInExternalPublicDir() lagane par file automatically /storage/emulated/0/Download me save hoti hai.",
+                "Notification visibility VISIBILITY_VISIBLE_NOTIFY_COMPLETED set karne se system notification drawer me live download progress bar dikhata hai."
+            )
         )
     )
 }
